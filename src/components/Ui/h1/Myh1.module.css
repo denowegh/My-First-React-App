@@ -1,0 +1,7 @@
+.myh1 {
+    text-align: center;
+    border: 2px solid teal;
+    margin: 5px auto;
+    padding: 5px 15px;
+    width: 10em;
+}
