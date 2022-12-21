@@ -38,15 +38,7 @@ function App() {
         setPosts(posts.filter((e) => e.id !== delPost.id));
     };
 
-    async function GetPosts() {
-        fetch("https://jsonplaceholder.typicode.com/todos/1")
-            .then((response) => response.json())
-            .then((json) => console.log(json));
-
-        console.log(
-            await fetch("https://jsonplaceholder.typicode.com/todos/2")
-        );
-    }
+    async function GetPosts() {}
 
     return (
         <div className="App">
