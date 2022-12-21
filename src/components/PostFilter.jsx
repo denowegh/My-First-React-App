@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React from "react";
 import MyInput from "./Ui/Input/MyInput";
 import MySelect from "./Ui/Myselect/MySelect";
 const PostFilter = ({ searchQuaryAndGlobal, setSearchQuaryAndGlobal }) => {

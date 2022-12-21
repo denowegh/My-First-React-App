@@ -1,5 +1,5 @@
-import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import PostServise from "./API/PostServise";
 import PostFilter from "./components/PostFilter";
 import PostForm from "./components/PostForm";
 import PostList from "./components/PostList";
@@ -31,6 +31,10 @@ function App() {
     );
     const [visible, setVisible] = useState(false);
 
+    useEffect(() => {
+        getPosts();
+    }, []);
+
     const createPost = (newPost) => {
         setPosts([...posts, newPost]);
         setVisible(false);
@@ -39,17 +43,12 @@ function App() {
         setPosts(posts.filter((e) => e.id !== delPost.id));
     };
 
-    async function GetPosts() {
-        const respounse = await axios.get(
-            "https://jsonplaceholder.typicode.com/posts"
-        );
-
-        setPosts(respounse.data);
+    async function getPosts() {
+        setPosts(await PostServise.getAll());
     }
 
     return (
         <div className="App">
-            <MyButton onClick={GetPosts}>aaaaa</MyButton>
             <MyButton onClick={setVisible}>Создать пост</MyButton>
             <MyModal visible={visible} setVisible={setVisible}>
                 <PostForm create={createPost} />
