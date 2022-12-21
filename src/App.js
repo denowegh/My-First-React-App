@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 import PostFilter from "./components/PostFilter";
 import PostForm from "./components/PostForm";
@@ -38,7 +39,13 @@ function App() {
         setPosts(posts.filter((e) => e.id !== delPost.id));
     };
 
-    async function GetPosts() {}
+    async function GetPosts() {
+        const respounse = await axios.get(
+            "https://jsonplaceholder.typicode.com/posts"
+        );
+
+        setPosts(respounse.data);
+    }
 
     return (
         <div className="App">
