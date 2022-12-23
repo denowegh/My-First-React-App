@@ -34,3 +34,8 @@
     transform: translateX(50rem);
     transition: all 500ms ease-in;
 }
+
+.loaderCenter {
+    display: flex;
+    justify-content: center;
+}

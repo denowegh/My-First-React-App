@@ -1,0 +1,20 @@
+.MyLoader {
+    border: 10px dashed red;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    animation: rotate infinite 4s linear;
+    margin-top: 150px;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg) scale(1);
+    }
+    50% {
+        transform: rotate(180deg) scale(1.5);
+    }
+    to {
+        transform: rotate(360deg) scale(1);
+    }
+}

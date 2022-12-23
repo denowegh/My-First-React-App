@@ -7,7 +7,8 @@ const PostList = function ({ posts, title, remove }) {
     if (posts.length !== 0) {
         return (
             <div>
-                <h1 style={{ textAlign: "center" }}>{title}</h1>
+                <Myh1 style={{ textAlign: "center" }}>{title}</Myh1>
+
                 <TransitionGroup>
                     {posts.map((post, index) => {
                         return (

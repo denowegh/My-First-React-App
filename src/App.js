@@ -4,7 +4,10 @@ import PostFilter from "./components/PostFilter";
 import PostForm from "./components/PostForm";
 import PostList from "./components/PostList";
 import MyButton from "./components/Ui/Button/MyButton";
+import Myh1 from "./components/Ui/h1/Myh1";
+import Loader from "./components/Ui/Loader/Loader";
 import MyModal from "./components/Ui/MyModal/MyModal";
+import { useFetching } from "./hooks/useFetching";
 import { useSortedAndSelectedPosts } from "./hooks/usePosts";
 
 import "./styles/App.css";
@@ -21,11 +24,13 @@ function App() {
         searchQuaryAndGlobal.searchQuary
     );
     const [visible, setVisible] = useState(false);
-
-    const [loaded, setLoaded] = useState(true);
+    const [fetching, isLoading, ErrorLoading] = useFetching(async () => {
+        setPosts(await PostServise.getAll());
+    });
 
     useEffect(() => {
-        getPosts();
+        fetching();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const createPost = (newPost) => {
@@ -35,13 +40,6 @@ function App() {
     const remove = (delPost) => {
         setPosts(posts.filter((e) => e.id !== delPost.id));
     };
-
-    async function getPosts() {
-        setTimeout(async () => {
-            setPosts(await PostServise.getAll());
-            await setLoaded(false);
-        }, 5000);
-    }
 
     return (
         <div className="App">
@@ -53,8 +51,14 @@ function App() {
                 searchQuaryAndGlobal={searchQuaryAndGlobal}
                 setSearchQuaryAndGlobal={setSearchQuaryAndGlobal}
             />
-            {loaded ? (
-                <h1>Загрузка списка...</h1>
+            {ErrorLoading && (
+                <Myh1>Не удалось загрузить посты: ${ErrorLoading}</Myh1>
+            )}
+
+            {isLoading ? (
+                <div className="loaderCenter">
+                    <Loader />
+                </div>
             ) : (
                 <PostList
                     remove={remove}
