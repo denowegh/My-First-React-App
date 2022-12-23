@@ -10,16 +10,7 @@ import { useSortedAndSelectedPosts } from "./hooks/usePosts";
 import "./styles/App.css";
 
 function App() {
-    const [posts, setPosts] = useState([
-        {
-            id: 1,
-            title: "a",
-            body: "d",
-        },
-        { id: 2, title: "b", body: "c" },
-        { id: 3, title: "c", body: "b" },
-        { id: 4, title: "d", body: "a" },
-    ]);
+    const [posts, setPosts] = useState([]);
     const [searchQuaryAndGlobal, setSearchQuaryAndGlobal] = useState({
         sortGlobal: "",
         searchQuary: "",
@@ -30,6 +21,8 @@ function App() {
         searchQuaryAndGlobal.searchQuary
     );
     const [visible, setVisible] = useState(false);
+
+    const [loaded, setLoaded] = useState(true);
 
     useEffect(() => {
         getPosts();
@@ -44,7 +37,10 @@ function App() {
     };
 
     async function getPosts() {
-        setPosts(await PostServise.getAll());
+        setTimeout(async () => {
+            setPosts(await PostServise.getAll());
+            await setLoaded(false);
+        }, 5000);
     }
 
     return (
@@ -57,11 +53,15 @@ function App() {
                 searchQuaryAndGlobal={searchQuaryAndGlobal}
                 setSearchQuaryAndGlobal={setSearchQuaryAndGlobal}
             />
-            <PostList
-                remove={remove}
-                posts={sortedAndSelectedPosts}
-                title="Title"
-            />
+            {loaded ? (
+                <h1>Загрузка списка...</h1>
+            ) : (
+                <PostList
+                    remove={remove}
+                    posts={sortedAndSelectedPosts}
+                    title="Title"
+                />
+            )}
         </div>
     );
 }
