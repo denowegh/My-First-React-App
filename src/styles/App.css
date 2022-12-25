@@ -39,3 +39,18 @@
     display: flex;
     justify-content: center;
 }
+.page__Wrapper {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.page {
+    border: 1px teal solid;
+    margin: 5px;
+    padding: 5px;
+}
+.page__current {
+    color: orange;
+    border: 1px orange solid;
+}
