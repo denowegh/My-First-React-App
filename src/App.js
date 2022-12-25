@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import PostServise from "./API/PostServise";
+import Pagination from "./components/Pagination";
 import PostFilter from "./components/PostFilter";
 import PostForm from "./components/PostForm";
 import PostList from "./components/PostList";
@@ -39,9 +40,6 @@ function App() {
         setTotalPages(getPageCount(countTotal, limit));
     });
 
-    let pagesArray = usePagination(totalPages);
-
-    console.log([pagesArray]);
     useEffect(() => {
         fetching();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -81,21 +79,11 @@ function App() {
                     title="Title"
                 />
             )}
-            <div className="page__Wrapper">
-                {pagesArray.map((e) => {
-                    return (
-                        <span
-                            onClick={() => cangePage(e)}
-                            kay={e}
-                            className={
-                                e === page ? "page page__current" : "page"
-                            }
-                        >
-                            {e}
-                        </span>
-                    );
-                })}
-            </div>
+            <Pagination
+                totalPages={totalPages}
+                page={page}
+                cangePage={cangePage}
+            />
         </div>
     );
 }
