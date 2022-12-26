@@ -1,0 +1,9 @@
+.NavBar {
+    background-color: rgb(117, 117, 117);
+    display: flex;
+    align-items: center;
+    width: 100vw;
+    height: 50px;
+    justify-content: flex-end;
+    padding-right: 50px;
+}

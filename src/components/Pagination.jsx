@@ -8,7 +8,7 @@ const Pagination = ({ totalPages, page, cangePage }) => {
                 return (
                     <span
                         onClick={() => cangePage(e)}
-                        kay={e}
+                        key={e}
                         className={e === page ? "page page__current" : "page"}
                     >
                         {e}
