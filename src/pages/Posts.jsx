@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import PostServise from "../API/PostServise";
 import Pagination from "../components/Pagination";
 import PostFilter from "../components/PostFilter";
@@ -9,6 +9,7 @@ import Myh1 from "../components/Ui/h1/Myh1";
 import Loader from "../components/Ui/Loader/Loader";
 import MyModal from "../components/Ui/MyModal/MyModal";
 import { useFetching } from "../hooks/useFetching";
+import { useObserver } from "../hooks/useObserver";
 import { useSortedAndSelectedPosts } from "../hooks/usePosts";
 
 import "../styles/App.css";
@@ -34,9 +35,14 @@ function Posts() {
     const [fetching, isLoading, ErrorLoading] = useFetching(async () => {
         const Postsloc = await PostServise.getAll(limit, page);
 
-        setPosts(Postsloc.data);
+        setPosts([...posts, ...Postsloc.data]);
         const countTotal = Number(Postsloc.headers["x-total-count"]);
         setTotalPages(getPageCount(countTotal, limit));
+    });
+    const lastElement = useRef();
+
+    useObserver(lastElement, page < totalPages, isLoading, () => {
+        setPage(page + 1);
     });
 
     useEffect(() => {
@@ -67,17 +73,16 @@ function Posts() {
                     setSearchQuaryAndGlobal={setSearchQuaryAndGlobal}
                 />
                 {ErrorLoading && <Myh1>${ErrorLoading}</Myh1>}
-
-                {isLoading ? (
+                <PostList
+                    remove={remove}
+                    posts={sortedAndSelectedPosts}
+                    title="Title"
+                />
+                <div ref={lastElement} />
+                {isLoading && (
                     <div className="loaderCenter">
                         <Loader />
                     </div>
-                ) : (
-                    <PostList
-                        remove={remove}
-                        posts={sortedAndSelectedPosts}
-                        title="Title"
-                    />
                 )}
                 <Pagination
                     totalPages={totalPages}

@@ -61,3 +61,11 @@
     color: orange;
     border: 1px orange solid;
 }
+.post__btns {
+    display: flex;
+    justify-content: center;
+}
+
+.comments {
+    margin: 20px 0px;
+}

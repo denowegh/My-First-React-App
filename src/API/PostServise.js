@@ -13,5 +13,17 @@ const PostServise = {
         );
         return respounse;
     },
+    async getById(Id) {
+        const respounse = await axios.get(
+            `https://jsonplaceholder.typicode.com/posts/` + Id
+        );
+        return respounse;
+    },
+    async getByIdComents(Id) {
+        const respounse = await axios.get(
+            `https://jsonplaceholder.typicode.com/posts/` + Id + "/comments"
+        );
+        return respounse;
+    },
 };
 export default PostServise;

@@ -1,7 +1,7 @@
 import React from "react";
 
-const About = function () {
+const Error = function () {
     return <h1>Error</h1>;
 };
 
-export default About;
+export default Error;
